@@ -1,0 +1,35 @@
+[
+	{
+		"nama"	: "andri",
+		"umur"	: 24,
+		"nrp"	: 201443500669,
+		"lulus"	: true,
+		"hobby"	: [
+			"satu",
+			"dua",
+			"tiga"
+		],
+		"pembimbing" : {
+			"pem1" : "bambang",
+			"pem2" : "ahmad"
+
+		}
+	},
+	{
+		"nama"	: "iyak",
+		"umur"	: 21,
+		"nrp"	: 201443500670,
+		"lulus"	: true,
+		"hobby"	: [
+			"satu",
+			"dua",
+			"tiga"
+		],
+		"pembimbing": {
+			"pem1" : "bambang",
+			"pem2" : "ahmad"
+
+		}
+	}
+
+]
