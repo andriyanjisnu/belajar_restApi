@@ -1,3 +1,33 @@
+<?php
+function get_CURL($url){
+
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $url);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  $result = curl_exec($curl);
+  curl_close($curl);
+
+  return json_decode($result, true);
+}
+
+// Instagram API
+$clientId = '1498228cc2c345d786de1f1d5e6586ae';
+$accessToken = '31971458.1498228.852170c63fda47e49c12025b278bbd26';
+
+$result = get_CURL('https://api.instagram.com/v1/users/self/?access_token=31971458.1498228.852170c63fda47e49c12025b278bbd26');
+$usernameIG = $result['data']['username'];
+$ppIG = $result['data']['profile_picture'];
+$followersIG = $result['data']['counts']['followed_by'];
+$followingIG = $result['data']['counts']['follows'];
+
+// Latest IG Post
+$result = get_CURL('https://api.instagram.com/v1/users/self/media/recent/?access_token=31971458.1498228.852170c63fda47e49c12025b278bbd26&count=8');
+$photos = [];
+foreach ($result['data'] as $photo) {
+  $photos[] = $photo['images']['thumbnail']['url'];
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -68,9 +98,60 @@
       </div>
     </section>
 
+    <!--- Social Media --->
+    <section class="social bg-light" id="social">
+      <div class="container">
+        <div class="row pt-4 mb-4">
+          <div class="col text-center">
+            <h2>Social Media</h2>
+          </div>          
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="img/profile1.png" width="200" class="rounded-circle img-thumbnail">
+              </div>
+              <div class="col-md-8">
+                <h5>Channel Youtube</h5>
+                <p>100000 Subscribers.</p>
+              </div>
+            </div>   
+            <div class="row mt-3 pb-3">
+              <div class="col">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>         
+          </div>  
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="<?= $ppIG; ?>" width="200" class="rounded-circle img-thumbnail">
+              </div>
+              <div class="col-md-8">
+                <h5><?= $usernameIG; ?></h5>
+                <p><?= $followingIG; ?> Following <?= $followersIG; ?> Followers</p>
+              </div>
+            </div>
+            <div class="row mt-3 pb-3">
+              <div class="col">
+                <?php foreach ($photos as $photo) : ?>
+                <div class="ig-thumbnail" style="width: 100px;height: 100px; float: left; overflow: hidden;">
+                  <img src="<?= $photo; ?>" style="width: 100px;">
+                </div>  
+                <?php endforeach; ?>              
+              </div>
+            </div>
+          </div>        
+        </div>
+      </div>      
+    </section>
 
     <!-- Portfolio -->
-    <section class="portfolio bg-light" id="portfolio">
+    <section class="portfolio" id="portfolio">
       <div class="container">
         <div class="row pt-4 mb-4">
           <div class="col text-center">
@@ -139,7 +220,7 @@
 
 
     <!-- Contact -->
-    <section class="contact" id="contact">
+    <section class="contact bg-light" id="contact">
       <div class="container">
         <div class="row pt-4 mb-4">
           <div class="col text-center">
