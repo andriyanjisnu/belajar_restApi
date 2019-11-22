@@ -10,6 +10,9 @@ class Mahasiswa extends REST_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('M_mahasiswa');
+
+		$this->methods['index_get']['limit'] = 100;
+		$this->methods['index_delete']['limit'] = 5;
 	}
 	
 	public function index_get(){
@@ -88,7 +91,6 @@ class Mahasiswa extends REST_Controller{
                     'status' => FALSE,
                     'message' => 'Failed'
             	], REST_Controller::HTTP_BAD_REQUEST);
-
 		}
 	}
 

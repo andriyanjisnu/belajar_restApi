@@ -9,9 +9,7 @@ class M_mahasiswa extends CI_Model{
 		} 
 		else {
 			return $this->db->get_where('mahasiswa', ['id' => $id])->result_array();
-		}
-
-		
+		}		
 	}
 
 	public function deleteMahasiswa($id){
